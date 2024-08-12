@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsible Lending LLM Chatbot</title>
+    <style>
+        /* Add some basic styling */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f4; }
+        #chat-container { width: 90%; height: 90%; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        #messages { height: 90%; overflow-y: scroll; margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; border-radius: 4px; }
+        .message { margin-bottom: 10px; padding: 10px; border-radius: 4px; border: 1px solid #ddd; max-width: 80%; }
+        .message.user { text-align: right; background-color: #e1f5fe; margin-left: auto; }
+        .message.bot { text-align: left; background-color: #e8eaf6; margin-right: auto; color: blue; }
+        #input-container { display: flex; }
+        #input-container input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        #input-container button { padding: 10px; border: none; background-color: #007BFF; color: white; border-radius: 4px; cursor: pointer; margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="messages"></div>
+        <div id="input-container">
+            <button onclick="sendMessage('Photo')">Photo</button>
+            <button onclick="sendMessage('File')">File</button>
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const initialMessage = "Hi, I'm Responsible Lending LLM. Here are a few choices for you: \n1. Learn about responsible lending \n2. Ask a question about lending policies \n3. Get help with your loan application";
+
+        const fakeResponses = {
+            "hi": "Hi, I'm Responsible Lending LLM. Here are a few choices for you: \n1. Learn about responsible lending \n2. Ask a question about lending policies \n3. Get help with your loan application",
+            "how are you": "I'm just a bot, but I'm here to help!",
+            "what's your name": "I'm RLLLM.",
+            "bye": "Goodbye! Have a great day!",
+            "1": "Responsible lending is about providing loans to consumers in a way that ensures they can meet the repayments without undue hardship.",
+            "2": "Please ask your specific question about lending policies.",
+            "3": "I can help you with your loan application. Please provide the details you need assistance with.",
+            "default": "I'm not sure how to respond to that. Can you ask something else?"
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            displayMessage(initialMessage, 'bot');
+
+            document.getElementById('user-input').addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+
+        function sendMessage(message = null) {
+            const userInput = message || document.getElementById('user-input').value.trim().toLowerCase();
+            if (userInput === '') return;
+            displayMessage(userInput, 'user');
+
+            const responseMessage = fakeResponses[userInput] || fakeResponses["default"];
+            setTimeout(() => {
+                displayMessage(responseMessage, 'bot');
+            }, 500); // Simulate a delay
+
+            document.getElementById('user-input').value = '';
+        }
+
+        function displayMessage(message, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + sender;
+            messageDiv.textContent = message;
+            document.getElementById('messages').appendChild(messageDiv);
+            messageDiv.scrollIntoView();
+        }
+    </script>
+</body>
+</html>
