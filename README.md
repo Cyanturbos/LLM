@@ -8,6 +8,9 @@ A LLM application for Responsible Lending
 * Version
 
 ### How do I get set up? ###
+* Install Chainlit: `pip pip install chainlit`
+* Run web application: `chainlit run --port 80 app.py`
+
 
 * Summary of set up
 * Configuration
