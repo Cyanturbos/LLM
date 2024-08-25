@@ -7,6 +7,6 @@ COPY . /app
 
 RUN pip install --no-cache-dir chainlit openai
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["chainlit", "run", "main.py", "--host", "0.0.0.0", "--port", "8080"]
